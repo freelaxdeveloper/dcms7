@@ -1,0 +1,5 @@
+www/sys/tmp/*.ini
+www/sys/tmp/*.ser
+data5.6/
+www/sys/ini/settings.ini
+www/sys/ini/iv.dat
