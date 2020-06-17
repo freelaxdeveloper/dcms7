@@ -29,6 +29,16 @@ $doc->title = __('Тема %s - действия', $theme['name']);
 
 $listing = new listing();
 
+if ($theme['group_edit'] <= $user->group && $user->group >= 2) {
+    $is_open = (int)($theme['group_write'] <= $theme['topic_group_write']);
+    $top = (int)!$theme['top'];
+
+    $post = $listing->post();
+    $post->url = 'theme.top.php?id=' . $theme['id'];
+    $post->title = __($top ? 'Закрепить тему' : 'Открепить тему');
+    $post->icon("forum.theme.{$top}.{$is_open}");
+}
+
 if ($theme['group_edit'] <= $user->group) {
     $post = $listing->post();
     $post->url = 'theme.status.php?id=' . $theme['id'];
