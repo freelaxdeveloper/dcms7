@@ -20,10 +20,10 @@ class files_screen_image {
      */
     public function getScreen() {
         switch ($this->_ext) {
-            case 'jpg':return @imagecreatefromjpeg($this->_path_abs);
-            case 'jpeg':return @imagecreatefromjpeg($this->_path_abs);
-            case 'gif':return @imagecreatefromgif($this->_path_abs);
-            case 'png':return @imagecreatefrompng($this->_path_abs);
+            case 'jpg':return imagecreatefromjpeg($this->_path_abs);
+            case 'jpeg':return imagecreatefromjpeg($this->_path_abs);
+            case 'gif':return imagecreatefromgif($this->_path_abs);
+            case 'png':return imagecreatefrompng($this->_path_abs);
             default:return false;
         }
     }
