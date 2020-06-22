@@ -4,7 +4,7 @@ services:
     image: mysql:5.6
     container_name: dev_mysql_dcms2
     ports:
-      - 3301:3306
+      - 3306:3306
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: dcms
@@ -37,4 +37,4 @@ services:
       PMA_HOST: dcms-mysql2
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-      MYSQL_PORT: 3302
+      MYSQL_PORT: 3306
