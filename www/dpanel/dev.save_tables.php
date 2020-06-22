@@ -41,7 +41,7 @@ if (!empty($_POST)) {
 
 $listing = new listing();
 foreach ($tables->tables as $table) {
-    if ($table {0} == '~') {
+    if ($table [0] == '~') {
         continue;
     }
     $ch = $listing->checkbox();

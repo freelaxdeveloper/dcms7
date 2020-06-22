@@ -1126,9 +1126,9 @@ class getid3_mp3 extends getid3_handler
 
 		$SyncPattern1 = substr($MPEGaudioData, 0, 4);
 		// may be different pattern due to padding
-		$SyncPattern2 = $SyncPattern1{0}.$SyncPattern1{1}.chr(ord($SyncPattern1{2}) | 0x02).$SyncPattern1{3};
+		$SyncPattern2 = $SyncPattern1[0].$SyncPattern1{1}.chr(ord($SyncPattern1{2}) | 0x02).$SyncPattern1{3};
 		if ($SyncPattern2 === $SyncPattern1) {
-			$SyncPattern2 = $SyncPattern1{0}.$SyncPattern1{1}.chr(ord($SyncPattern1{2}) & 0xFD).$SyncPattern1{3};
+			$SyncPattern2 = $SyncPattern1[0].$SyncPattern1{1}.chr(ord($SyncPattern1{2}) & 0xFD).$SyncPattern1{3};
 		}
 
 		$framelength = false;
@@ -1230,7 +1230,7 @@ class getid3_mp3 extends getid3_handler
 			if (strlen($head4) < 4) {
 				break;
 			}
-			if ($head4{0} != "\xFF") {
+			if ($head4[0] != "\xFF") {
 				for ($i = 1; $i < 4; $i++) {
 					if ($head4{$i} == "\xFF") {
 						$this->fseek($i - 4, SEEK_CUR);
@@ -1264,7 +1264,7 @@ class getid3_mp3 extends getid3_handler
 					$WhereWeWere = $this->ftell();
 					$this->fseek($MPEGaudioHeaderLengthCache[$head4] - 4, SEEK_CUR);
 					$next4 = $this->fread(4);
-					if ($next4{0} == "\xFF") {
+					if ($next4[0] == "\xFF") {
 						if (!isset($MPEGaudioHeaderDecodeCache[$next4])) {
 							$MPEGaudioHeaderDecodeCache[$next4] = self::MPEGaudioHeaderDecode($next4);
 						}

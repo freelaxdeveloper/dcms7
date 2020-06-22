@@ -1,13 +1,19 @@
 <?php
 
 include_once '../sys/inc/start.php';
+
+use App\Models\{
+//    User,
+    ChatMini
+};
+
 if (AJAX)
     $doc = new document_json();
 else
     $doc = new document();
 $doc->title = __('Мини чат');
 
-$pages = new pages($db->query("SELECT COUNT(*) FROM `chat_mini`")->fetchColumn());
+$pages = new pages(ChatMini::count());
 
 $can_write = true;
 /** @var $user \user */
@@ -28,8 +34,12 @@ if ($can_write && $pages->this_page == 1) {
             $doc->err(__('Обнаружен мат: %s', $mat));
         } elseif ($message) {
             $user->balls++;
-            $res = $db->prepare("INSERT INTO `chat_mini` (`id_user`, `time`, `message`) VALUES (?, ?, ?)");
-            $res->execute(Array($user->id, TIME, $message));
+            ChatMini::create([
+                ChatMini::ID_USER => $user->id,
+                ChatMini::TIME => TIME,
+                ChatMini::MESSAGE => $message,
+            ]);
+
             header('Refresh: 1; url=?' . passgen() . '&' . SID);
             $doc->ret(__('Вернуться'), '?' . passgen());
             $doc->msg(__('Сообщение успешно отправлено'));
@@ -52,10 +62,8 @@ if ($can_write && $pages->this_page == 1) {
         $message_form = '';
         if (isset($_GET ['message']) && is_numeric($_GET ['message'])) {
             $id_message = (int)$_GET ['message'];
-            $q = $db->prepare("SELECT * FROM `chat_mini` WHERE `id` = ? LIMIT 1");
-            $q->execute(Array($id_message));
-            if ($message = $q->fetch()) {
-                $ank = new user($message['id_user']);
+            if ($message = ChatMini::find($id_message)) {
+                $ank = new user($message->id_user);
                 if (isset($_GET['reply'])) {
                     $message_form = '@' . $ank->login . ',';
                 } elseif (isset($_GET['quote'])) {
@@ -82,19 +90,17 @@ $listing = new listing();
 if (!empty($form))
     $listing->setForm($form);
 
-
-$q = $db->query("SELECT * FROM `chat_mini` ORDER BY `id` DESC LIMIT ".$pages->limit);
+$arr = ChatMini::with('user')->orderBy('id', 'DESC')->paginate($user->items_per_page)->toArray();
 $after_id = false;
-if ($arr = $q->fetchAll()) {
+if ($arr = $arr['data']) {
     foreach ($arr AS $message) {
-        $ank = new user($message['id_user']);
         $post = $listing->post();
         $post->id = 'chat_post_' . $message['id'];
         $post->url = 'actions.php?id=' . $message['id'];
         $post->time = misc::when($message['time']);
-        $post->title = $ank->nick();
+        $post->title = $message['user']['nick'];
         $post->post = text::toOutput($message['message']);
-        $post->icon($ank->icon());
+        $post->icon($message['user']['icon']);
 
         if (!$doc->last_modified)
             $doc->last_modified = $message['time'];

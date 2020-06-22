@@ -1,5 +1,10 @@
 www/sys/tmp/*.ini
 www/sys/tmp/*.ser
+www/sys/tmp/*.php
 data5.6/
 www/sys/ini/settings.ini
 www/sys/ini/iv.dat
+www/vendor
+www/.env
+www/sys/files
+.idea

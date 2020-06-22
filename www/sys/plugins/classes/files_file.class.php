@@ -92,10 +92,10 @@ class files_file
      */
     public function rename($runame, $name = false)
     {
-        if ($this->name{0} == '.')
+        if ($this->name[0] == '.')
             return false;
 
-        if ($name && $name{0} == '.')
+        if ($name && $name[0] == '.')
             return false;
 
         if ($name && file_exists($this->path_dir_abs . '/' . $name))
@@ -454,7 +454,7 @@ class files_file
     {
         if ($this->id)
             return false;
-        if ($this->name{0} == '.')
+        if ($this->name[0] == '.')
             return false;
 
         $res = db::me()->prepare("INSERT INTO `files_cache` (`path_file_rel`, `time_add`, `group_show`, `runame`)
@@ -578,7 +578,7 @@ WHERE `id` = ? LIMIT 1");
      */
     public function save_data()
     {
-        if ($this->name{0} !== '.') {
+        if ($this->name[0] !== '.') {
             ini::save($this->path_dir_abs . '/.' . $this->name . '.ini', array('CONFIG' => $this->_data, 'SCREENS' => $this->_screens), true);
         }
     }

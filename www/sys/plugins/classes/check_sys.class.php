@@ -28,8 +28,7 @@ class check_sys {
         } elseif (is_dir(H . '/' . $path)) {
             $od = opendir(H . '/' . $path);
             while ($rd = readdir($od)) {
-                if ($rd {
-                        0} === '.')
+                if ($rd[0] === '.')
                     continue;
                 $err = array_merge($err, self::getChmodErr($path . '/' . $rd, $errorIfNotExists));
             }
@@ -43,16 +42,16 @@ class check_sys {
 
     protected function _checkSys() {
         // проверка версии PHP
-        if (version_compare(PHP_VERSION, '5.2', '>=')) {
-            $this->oks[] = 'PHP >= 5.2: ОК (' . PHP_VERSION . ')';
+        if (version_compare(PHP_VERSION, '7.3', '>=')) {
+            $this->oks[] = 'PHP >= 7.3: ОК (' . PHP_VERSION . ')';
         } else {
-            $this->errors[] = __('Требуется PHP >= %s (сейчас %s)', '5.2', PHP_VERSION);
+            $this->errors[] = __('Требуется PHP >= %s (сейчас %s)', '7.3', PHP_VERSION);
         }
         // проверка MySQL
-        if (function_exists('mysql_info')) {
+        if (function_exists('mysqli_info')) {
             $this->oks[] = 'MySQL: OK';
         } else {
-            $this->errors[] = __('Невозможно получить информацию о MySQL');
+            $this->errors[] = __('Невозможно2 получить информацию о MySQL');
         }
 
         // проверка PDO

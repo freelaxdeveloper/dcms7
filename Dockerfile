@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.3-apache
 #Install git
 RUN apt-get update && apt-get install -y libmcrypt-dev \
     && apt-get install -y git
@@ -11,7 +11,7 @@ RUN apt-get install -y libpng-dev
 RUN apt-get install -y libjpeg62-turbo-dev
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install pdo pdo_mysql mysql mbstring mcrypt gd
+RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring gd
 
 RUN a2enmod rewrite
 RUN a2enmod proxy

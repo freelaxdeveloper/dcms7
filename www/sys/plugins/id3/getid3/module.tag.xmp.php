@@ -114,7 +114,7 @@ class Image_XMP
 		$data = fread($filehnd, 2);
 
 		// Check that the third character is 0xFF (Start of first segment header)
-		if ($data{0} != "\xFF")
+		if ($data[0] != "\xFF")
 		{
 			// NO FF found - close file and return - JPEG is probably corrupted
 			fclose($filehnd);
@@ -168,7 +168,7 @@ class Image_XMP
 				$data = fread($filehnd, 2);
 
 				// Check that the first byte of the two is 0xFF as it should be for a marker
-				if ($data{0} != "\xFF")
+				if ($data[0] != "\xFF")
 				{
 					// NO FF found - close file and return - JPEG is probably corrupted
 					fclose($filehnd);

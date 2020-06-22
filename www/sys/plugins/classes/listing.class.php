@@ -7,9 +7,9 @@ class listing extends ui_contaner {
 
     public $sortable = false;
 
-    public function __construct() {
+    public function __construct($tpl_file = 'listing.tpl') {
         parent::__construct();
-        $this->_tpl_file = 'listing.tpl';
+        $this->_tpl_file = $tpl_file;
     }
 
     public function setForm($form) {

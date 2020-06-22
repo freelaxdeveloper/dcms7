@@ -236,7 +236,7 @@ class getid3_midi extends getid3_handler
 								break;
 
 							case 0x58: // Time signature
-								$timesig_numerator   = getid3_lib::BigEndian2Int($METAeventData{0});
+								$timesig_numerator   = getid3_lib::BigEndian2Int($METAeventData[0]);
 								$timesig_denominator = pow(2, getid3_lib::BigEndian2Int($METAeventData{1})); // $02 -> x/4, $03 -> x/8, etc
 								$timesig_32inqnote   = getid3_lib::BigEndian2Int($METAeventData{2});         // number of 32nd notes to the quarter note
 								//$thisfile_midi_raw['events'][$tracknumber][$eventid]['timesig_32inqnote']   = $timesig_32inqnote;
@@ -247,7 +247,7 @@ class getid3_midi extends getid3_handler
 								break;
 
 							case 0x59: // Keysignature
-								$keysig_sharpsflats = getid3_lib::BigEndian2Int($METAeventData{0});
+								$keysig_sharpsflats = getid3_lib::BigEndian2Int($METAeventData[0]);
 								if ($keysig_sharpsflats & 0x80) {
 									// (-7 -> 7 flats, 0 ->key of C, 7 -> 7 sharps)
 									$keysig_sharpsflats -= 256;

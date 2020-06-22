@@ -499,14 +499,15 @@ input[type="submit"]:hover {
 /*region listing*/
 
 .listing {
-    margin-bottom: 10px;
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1px;
+    /*box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.06);*/
     background-color: #fff;
     border-radius: 2px;
     overflow: hidden;
 }
 
 .listing .post {
+    background-color: #fff;
     margin: 5px 0;
     padding: 10px 5px;
     border: none;
@@ -592,7 +593,7 @@ input[type="submit"]:hover {
 }
 
 .post.content .post_head {
-    border-bottom: 1px solid #F1F1F1;
+    /*border-bottom: 1px solid #F1F1F1;*/
     padding-bottom: 7px;
 }
 

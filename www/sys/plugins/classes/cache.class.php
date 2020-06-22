@@ -168,7 +168,7 @@ abstract class cacher {
     protected static function _clear(&$cache) {
         // удаление устаревших данных
         foreach ($cache as $name => $data) {
-            if ($data['t'] >= TIME)
+            if (isset($data['t']) && $data['t'] >= TIME)
                 continue;
             unset($cache[$name]);
         }

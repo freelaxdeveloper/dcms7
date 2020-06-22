@@ -219,6 +219,52 @@ function __() {
     return eval('return sprintf($string,' . implode(',', $args4eval) . ');');
 }
 
+function issetID(string $key): bool
+{
+    return isset($_GET[$key]) && is_numeric($_GET[$key]);
+}
+
+use Jenssegers\Blade\Blade;
+use Illuminate\Http\Request;
+
+if ( ! function_exists('request'))
+{
+    /**
+     * @return Request
+     */
+    function request(): Request
+    {
+        return Request::capture();
+    }
+}
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\Router;
+use Illuminate\Routing\UrlGenerator;
+
+if ( ! function_exists('redirect'))
+{
+    function redirect()
+    {
+        return 2;
+    }
+}
+
+/**
+ * Returns the connected template
+ *
+ * @param  string $view   template name
+ * @param  array  $params array of parameters
+ * @return string         generated code
+ */
+function view($view, $params = [])
+{
+    $blade = new Blade(
+        H . '/app/resources/views',
+        H . '/sys/tmp');
+
+    return $blade->render($view, $params);
+}
+
 @session_name(SESSION_NAME) or die(__('Невозможно инициализировать сессии'));
 @session_start() or die(__('Невозможно инициализировать сессии'));
 /**

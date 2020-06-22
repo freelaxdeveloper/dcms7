@@ -151,7 +151,7 @@ class getid3_wavpack extends getid3_handler
 				if (feof($this->getid3->fp)) {
 					break;
 				}
-				$metablock['id'] = ord($metablockheader{0});
+				$metablock['id'] = ord($metablockheader[0]);
 				$metablock['function_id'] = ($metablock['id'] & 0x3F);
 				$metablock['function_name'] = $this->WavPackMetablockNameLookup($metablock['function_id']);
 

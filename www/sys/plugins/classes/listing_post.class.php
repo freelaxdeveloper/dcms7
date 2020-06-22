@@ -15,7 +15,7 @@ class listing_post extends ui
     public $time = '';
     public $image = '';
     public $title = '';
-    public $content = '';
+    public $content = [];
     public $bottom = '';
     public $highlight = false;
     public $actions = array();
@@ -31,7 +31,7 @@ class listing_post extends ui
      * @param string $title заголовок поста
      * @param string $content Содержимое поста
      */
-    public function __construct($title = '', $content = '')
+    public function __construct($title = '', $content = [])
     {
         parent::__construct();
         $this->_tpl_file = 'listing.post.tpl';

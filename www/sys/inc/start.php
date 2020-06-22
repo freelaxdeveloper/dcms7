@@ -1,4 +1,69 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+use Illuminate\Pagination\Paginator;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+Dotenv\Dotenv::createImmutable(__DIR__ . '/../..')->load();
+
+require_once __DIR__ . '/db_connect.php';
+
+use Illuminate\Database\Capsule\Manager;
+
+class ListenDB
+{
+    protected $queries = [];
+
+    public function listen(\Closure $closure) {
+        $closure->bindTo($this, 'ListenDB')();
+    }
+
+    public function __destruct()
+    {
+        if ($this->queries){
+            $fp = fopen(__DIR__ . '/../../queries.txt', 'a');
+
+            fwrite($fp, implode("\n", $this->queries));
+
+            fclose($fp);
+        }
+    }
+}
+
+$listen = new ListenDB;
+$listen->listen(function () {
+    Manager::listen(function ($query) {
+        $bindings = implode(', ', $query->bindings);
+
+        $this->queries[] = "{$query->sql} | {$query->time} ({$bindings})";
+
+    });
+});
+
+//Paginator::viewFactoryResolver(function () {
+//    return $this->app['view'];
+//});
+
+//Paginator::currentPathResolver(function () {
+//    return $this->app['request']->url();
+//});
+
+Paginator::currentPageResolver(function ($pageName = 'page') {
+    $page = $_GET[$pageName] ?? 1;
+
+    if (filter_var($page, FILTER_VALIDATE_INT) !== false && (int) $page >= 1) {
+        return (int) $page;
+    }
+
+    return 1;
+});
+
+Paginator::queryStringResolver(function () {
+    return $this->app['request']->query();
+});
 
 // Проверяем версию PHP
 version_compare(PHP_VERSION, '5.2', '>=') or die('Требуется PHP >= 5.2');
@@ -85,9 +150,9 @@ if ($dcms->new_time_as_date) {
 try {
     $db = DB::me($dcms->mysql_host, $dcms->mysql_base, $dcms->mysql_user, $dcms->mysql_pass);
 } catch (ExceptionPdoNotExists $e) {
-    @mysql_connect($dcms->mysql_host, $dcms->mysql_user, $dcms->mysql_pass) or die('Нет соединения с MySQL сервером');
-    @mysql_select_db($dcms->mysql_base) or die('Нет доступа к выбранной базе данных');
-    mysql_query('SET NAMES "utf8"');
+//    @mysql_connect($dcms->mysql_host, $dcms->mysql_user, $dcms->mysql_pass) or die('Нет соединения с MySQL сервером');
+//    @mysql_select_db($dcms->mysql_base) or die('Нет доступа к выбранной базе данных');
+//    mysql_query('SET NAMES "utf8"');
 
     if (false != ($backups = glob(TMP . '/backup.*.zip'))) {
         if (count($backups) == 1) {

@@ -80,7 +80,7 @@ if ($user->group) {
     }
 }
 
-$listing = new listing();
+$listing = new listing('listing.forum.tpl');
 foreach ($messages AS $message) {
     $post = $listing->post();
     $post->id = 'message' . $message['id'];

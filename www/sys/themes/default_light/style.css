@@ -136,6 +136,7 @@
     border: 1px #ccc solid;
     border-top-style: none !important;
     background-color: #F2F4F8;
+    margin: 2px 0;
 }
 
 .post:first-child{
