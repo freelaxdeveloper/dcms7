@@ -59,12 +59,13 @@ if ($can_write && isset($_POST ['message']) && isset($_POST ['name'])) {
         $user->balls++;
         $res = $db->prepare("UPDATE `forum_topics` SET `time_last` = ? WHERE `id` = ? LIMIT 1");
         $res->execute(Array(TIME, $id_topic));
-        $res = $db->prepare("INSERT INTO `forum_themes` (`id_category`, `id_topic`,  `name`, `id_autor`, `time_create`, `id_last`, `time_last`, `group_show`, `group_write`, `group_edit`) VALUES (?,?,?,?,?,?,?,?,?,?)");
-        $res->execute(Array($topic['id_category'], $topic['id'], $name, $user->id, TIME, $user->id, TIME, $topic['group_show'], $topic['group_write'], max($user->group, 2)));
+        $res = $db->prepare("INSERT INTO `forum_themes` (`id_category`, `id_topic`,  `name`, `id_autor`, `time_create`, `id_last`, `time_last`, `group_show`, `group_write`, `group_edit`,`id_moderator`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        $res->execute(Array($topic['id_category'], $topic['id'], $name, $user->id, TIME, $user->id, TIME, $topic['group_show'], $topic['group_write'], max($user->group, 2), 0));
         $theme ['id'] = $db->lastInsertId();
         $res = $db->prepare("SELECT * FROM `forum_themes` WHERE `id` = ? LIMIT 1");
         $res->execute(Array($theme['id']));
         $theme = $res->fetch();
+
 
         $res = $db->prepare("INSERT INTO `forum_messages` (`id_category`, `id_topic`, `id_theme`, `id_user`, `time`, `message`, `group_show`, `group_edit`) VALUES (?,?,?,?,?,?,?,?)");
         $res->execute(Array($theme['id_category'], $theme['id_topic'], $theme['id'], $user->id, TIME, $message, $theme['group_show'], $theme['group_edit']));
