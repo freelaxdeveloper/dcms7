@@ -6,7 +6,7 @@ use Illuminate\Database\Capsule\Manager;
 $capsule = new Manager;
 
 $capsule->addConnection([
-    'host'    => 'dev_mysql_dcms2',
+    'host'    => env('DB_HOST'),
     'driver'    => 'mysql',
     'database'  => env('DB_DATABASE'),
     'password'  => env('DB_PASSWORD'),
