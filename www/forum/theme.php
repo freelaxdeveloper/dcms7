@@ -171,6 +171,13 @@ foreach ($messages AS $message) {
 
 $listing->display(__('Сообщения отсутствуют'));
 
+$form = new form("/forum/message.new.php?id_theme={$theme['id']}");
+$form->textarea('message', __('Сообщение'));
+$form->checkbox('add_file', __('Добавить файл'));
+if ($dcms->forum_message_captcha && $user->group < 2) $form->captcha();
+$form->button(__('Отправить'));
+$form->display();
+
 $pages->display('theme.php?id=' . $theme['id'] . '&amp;'); // вывод страниц
 
 if ($theme['group_write'] <= $user->group) {

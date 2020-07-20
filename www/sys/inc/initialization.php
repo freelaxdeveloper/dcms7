@@ -61,7 +61,7 @@ define('TMP', H . '/sys/tmp');
  */
 define('FILES', realpath(H . '/sys/files'));
 /**
- * @const TIME UNIXTIMESTAMP 
+ * @const TIME UNIXTIMESTAMP
  */
 define('TIME', time());
 /**
@@ -134,7 +134,7 @@ if (version_compare(PHP_VERSION, '5.4', '<=')){
 define('URL', urlencode($_SERVER ['REQUEST_URI']));
 
 if (function_exists('mb_internal_encoding')) {
-    // Выставляем кодировку для mb_string  
+    // Выставляем кодировку для mb_string
     mb_internal_encoding('UTF-8');
 }
 
@@ -219,7 +219,7 @@ function __() {
     return eval('return sprintf($string,' . implode(',', $args4eval) . ');');
 }
 
-function issetID(string $key): bool
+function issetID(string $key = 'id'): bool
 {
     return isset($_GET[$key]) && is_numeric($_GET[$key]);
 }
