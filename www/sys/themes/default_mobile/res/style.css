@@ -226,7 +226,7 @@ td.icon {
 td.title {
     position: relative;
     /* height: 100%; */
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     /* height: 1em; */
 }
 
