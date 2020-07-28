@@ -107,7 +107,7 @@ for ($z = $start; $z < $end && $z < $pages->posts; $z++) {
     $is_open = (int)($theme['group_write'] <= $theme['topic_group_write']);
 
     $post->icon("forum.theme.{$theme['top']}.$is_open.png");
-    $post->time = misc::when($theme['time_create']);
+//    $post->time = misc::when($theme['time_create']);
     $post->title = text::toValue($theme['name']);
 
     $post->counter = $new_messages[$theme['id']] ? '+' . $new_messages[$theme['id']] : $all_messages[$theme['id']];
@@ -116,7 +116,9 @@ for ($z = $start; $z < $end && $z < $pages->posts; $z++) {
     $last_msg = new user($theme['id_last']);
     $post->content = ($autor->id != $last_msg->id ? $autor->nick . '/' . $last_msg->nick : $autor->nick) . '<br />';
     $post->content .= "(<a href='category.php?id=$theme[id_category]'>" . text::toValue($theme['category_name']) . "</a> &gt; <a href='topic.php?id=$theme[id_topic]'>" . text::toValue($theme['topic_name']) . "</a>)<br />";
-    $post->bottom = __('Просмотров: %s', $views_counters[$theme['id']]);
+//    $post->bottom = __('Просмотров: %s', $views_counters[$theme['id']]);
+    $post->bottom = __('Просмотров: %s / <b><small>%s</small></b>', $views_counters[$theme['id']], misc::when($theme['time_create']));
+
 
     if (!$doc->last_modified)
         $doc->last_modified = $theme['time_last'];
