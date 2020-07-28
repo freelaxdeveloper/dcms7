@@ -265,6 +265,13 @@ function view($view, $params = [])
     return $blade->render($view, $params);
 }
 
+function asset(string $path): string
+{
+    $time = fileatime(H . $path);
+
+    return "{$path}?v={$time}";
+}
+
 @session_name(SESSION_NAME) or die(__('Невозможно инициализировать сессии'));
 @session_start() or die(__('Невозможно инициализировать сессии'));
 /**

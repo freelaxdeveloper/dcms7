@@ -185,7 +185,7 @@ body {
 section#content {
     margin: 0 0.3em;
     padding: 0.5em;
-    background-color: #fff;
+    /*background-color: #fff;*/
     border: 1px solid #DEDEDE;
     font-size: .8em;
 }
@@ -248,7 +248,12 @@ span.counter {
 
 .post {
     display: block;
-    padding: 1em 0;
+    background-color: #fff;
+    padding: 1em;
+    margin: 0 0 5px 0;
+}
+.post:last-child {
+    margin: 0;
 }
 
 .listing {

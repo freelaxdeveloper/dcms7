@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/sys/themes/.common/system.css" type="text/css"/>
     <link rel="stylesheet" href="/sys/themes/.common/icons.css" type="text/css"/>
-    <link rel="stylesheet" href="<?= $path ?>/res/style.css" type="text/css"/>
+    <link rel="stylesheet" href="<?= asset("{$path}/res/style.css") ?>" type="text/css"/>
     <meta name="viewport" content="minimum-scale=1.0,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="generator" content="DCMS <?= $dcms->version ?>"/>
     <? if ($description) { ?>

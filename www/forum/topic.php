@@ -58,14 +58,14 @@ if ($arr = $q->fetchAll()) {
         $post->title = text::toValue($theme['name']);
         $post->url = 'theme.php?id=' . $theme['id'];
         $post->counter = $themes_msg_counters[$theme['id']];
-        $post->time = misc::when($theme['time_last']);
+//        $post->time = misc::when($theme['time_last']);
 
 
         $autor = new user($theme['id_autor']);
         $last_msg = new user($theme['id_last']);
 
         $post->content = ($autor->id != $last_msg->id ? $autor->nick . '/' . $last_msg->nick : $autor->nick) . '<br />';
-        $post->bottom = __('Просмотров: %s', $themes_views_counters[$theme['id']]);
+        $post->bottom = __('Просмотров: %s / <b><small>%s</small></b>', $themes_views_counters[$theme['id']], misc::when($theme['time_last']));
     }
 }
 
