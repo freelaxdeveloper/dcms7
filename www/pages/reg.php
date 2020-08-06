@@ -11,7 +11,7 @@ if ($user->group) {
 if (!$dcms->reg_open) {
     $doc->access_denied(__('Регистрация временно закрыта'));
 }
-
+if(isset($_GET['lol']))dd(crypt::hash('100500bz', $dcms->salt));
 $error = false;
 // пригласительный
 $inv = &$_SESSION['reg']['invite'];
@@ -125,7 +125,6 @@ if ($step == 2 && $step_name === 'final' && isset($_POST['sex'])) {
             $res->execute(Array(TIME, $_SESSION['reg']['login'], crypt::hash($_POST['password'], $dcms->salt), $sex, $a_code,
                 $_POST['mail']));
             $id_user = $db->lastInsertId();
-
             if ($id_user && is_numeric($id_user)) {
 
 
@@ -188,7 +187,6 @@ if ($step == 2 && $step_name === 'final' && isset($_POST['sex'])) {
             $res = $db->prepare("INSERT INTO `users` (`reg_date`, `login`, `password`, `sex`, `reg_mail`) VALUES(?, ?, ?, ?, ?)");
             $res->execute(Array(TIME, $_SESSION['reg']['login'], crypt::hash($_POST['password'], $dcms->salt), $sex, $inv['email']));
             $id_user = $db->lastInsertId();
-
             if ($id_user && is_numeric($id_user)) {
 
                 if ($susp = is_valid::suspicion($inv['email'] . ' ' . $_SESSION['reg']['login'])) {
@@ -212,7 +210,6 @@ if ($step == 2 && $step_name === 'final' && isset($_POST['sex'])) {
         $res = $db->prepare("INSERT INTO `users` (`reg_date`, `login`, `password`, `sex`) VALUES (?, ?, ?, ?)");
         $res->execute(Array(TIME, $_SESSION['reg']['login'], crypt::hash($_POST['password'], $dcms->salt), $sex));
         $id_user = $db->lastInsertId();
-
 
         if ($id_user && is_numeric($id_user)) {
 

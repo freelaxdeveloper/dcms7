@@ -8,6 +8,8 @@ if ($user->group) {
     $doc->err(__('Вы уже авторизованы'));
     exit;
 }
+$doc->err(__('В разработке'));
+exit;
 
 if (!empty($_GET['id']) && !empty($_GET['code'])) {
     $doc->ret(__('Восстановление пароля'), '?' . passgen());
