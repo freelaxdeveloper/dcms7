@@ -1,6 +1,23 @@
 <?php
+use App\Models\News;
 
 defined('DCMS') or die;
+
+
+if ($news = News::orderByDesc('id')->with('user')->first()) {
+    $listing = new listing();
+    $post = $listing->post();
+
+    $post->icon('news');
+    $post->content = text::toOutput($news->text);
+    $post->title = text::toValue($news->title);
+    $post->url = '/news/comments.php?id=' . $news->id;
+    $post->time = misc::when($news->time);
+    $post->bottom = '<a href="/profile.view.php?id=' . $news->id_user . '">' . $news->user->nick . '</a>';
+
+
+    $listing->display();
+}
 
 $listing = new listing();
 $post = $listing->post();
